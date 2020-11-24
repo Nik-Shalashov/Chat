@@ -33,13 +33,10 @@ public class Controller {
             return;
         } else {
             addWordToList(word);
-            addWorldToTable(word);
         }
         inputField.clear();
     }
 
-    private void addWorldToTable(String word) {
-    }
 
     private void addWordToList(String word) {
         listView.getItems().add(word);
