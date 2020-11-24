@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+
     public final String PATH_TO_FXML = "sample.fxml";
 
     @Override
