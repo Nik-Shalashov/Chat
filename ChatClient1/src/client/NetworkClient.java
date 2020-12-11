@@ -17,19 +17,21 @@ import java.io.IOException;
 
 public class NetworkClient extends Application {
 
+
+    public final String PATH_TO_FXML = "views/sample.fxml";
     private Stage primaryStage;
     private Stage authStage;
     private Network network;
     private ChatController chatController;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception{
 
         this.primaryStage = primaryStage;
 
         network = new Network();
         if (!network.connect()) {
-            showErrorMessage("Проблемы с соединением", "", "Ошибка подключения к серверу");
+            showErrorMsg("Problems with connection", "", "Unable to connect to server!");
             return;
         }
 
@@ -43,7 +45,7 @@ public class NetworkClient extends Application {
         Parent root = loader.load();
         authStage = new Stage();
 
-        authStage.setTitle("Авторизация");
+        authStage.setTitle("Authorization");
         authStage.initModality(Modality.WINDOW_MODAL);
         authStage.initOwner(primaryStage);
         Scene scene = new Scene(root);
@@ -54,16 +56,15 @@ public class NetworkClient extends Application {
         authController.setNetwork(network);
         authController.setNetworkClient(this);
 
-
     }
 
     public void createMainChatWindow() throws java.io.IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(NetworkClient.class.getResource("views/sample.fxml"));
+        loader.setLocation(NetworkClient.class.getResource(PATH_TO_FXML));
 
         Parent root = loader.load();
 
-        primaryStage.setTitle("Messenger");
+        primaryStage.setTitle("Chat");
         primaryStage.setScene(new Scene(root));
 
         chatController = loader.getController();
@@ -72,11 +73,11 @@ public class NetworkClient extends Application {
         primaryStage.setOnCloseRequest(windowEvent -> network.close());
     }
 
-    public static void showErrorMessage(String title, String message, String errorMessage) {
+    public static void showErrorMsg(String title, String msg, String errorMsg) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
-        alert.setHeaderText(message);
-        alert.setContentText(errorMessage);
+        alert.setHeaderText(msg);
+        alert.setContentText(errorMsg);
         alert.showAndWait();
     }
 
@@ -93,5 +94,4 @@ public class NetworkClient extends Application {
         chatController.setLabel(network.getUsername());
         network.waitMessage(chatController);
     }
-
 }

@@ -3,6 +3,7 @@ package chat;
 import chat.auth.AuthService;
 import chat.auth.BaseAuthService;
 import chat.handler.ClientHandler;
+import clientserver.Command;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -23,17 +24,14 @@ public class MyServer {
 
     public void start() throws IOException {
         System.out.println("Server turn on!");
-        authService.start();
         try {
             while (true) {
                 waitAndProcessNewClientConnection();
-
             }
         } catch (IOException e) {
             System.out.println("Unable to create new connection");
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             serverSocket.close();
         }
 
@@ -55,15 +53,7 @@ public class MyServer {
         return authService;
     }
 
-    public void subscribe(ClientHandler clientHandler) {
-        clients.add(clientHandler);
-    }
-
-    public void unsubscribe(ClientHandler clientHandler) {
-        clients.remove(clientHandler);
-    }
-
-    public boolean isUsernameBusy(String username) {
+    public synchronized boolean isUsernameBusy(String username) {
         for (ClientHandler client : clients) {
             if (client.getUsername().equals(username)) {
                 return true;
@@ -72,19 +62,41 @@ public class MyServer {
         return false;
     }
 
-    public void broadcastMessage(String msg, ClientHandler sender, boolean isServerInfoMsg) throws IOException {
+    public synchronized void subscribe(ClientHandler clientHandler) throws IOException {
+        clients.add(clientHandler);
+        List<String> usernames = getAllUsernames();
+        broadcastMessage(null, Command.updateUsersListCommand(usernames));
+    }
+
+    public synchronized void unsubscribe(ClientHandler clientHandler) throws IOException {
+        clients.remove(clientHandler);
+        List<String> usernames = getAllUsernames();
+        broadcastMessage(null, Command.updateUsersListCommand(usernames));
+    }
+
+    private List<String> getAllUsernames() {
+        List<String> usernames = new ArrayList<>();
+        for (ClientHandler client : clients) {
+            usernames.add(client.getUsername());
+        }
+        return usernames;
+    }
+
+    public synchronized void broadcastMessage(ClientHandler sender, Command command) throws IOException {
         for (ClientHandler client : clients) {
             if (client == sender) {
                 continue;
             }
-            client.sendMessage(isServerInfoMsg ? null : sender.getUsername(), msg);
+            client.sendMessage(command);
+
         }
     }
 
-    public void personalMessage(String msg, String recipient, ClientHandler sender, boolean isServerInfoMsg) throws IOException {
+    public synchronized void sendPrivateMessage(String recipient, Command command) throws IOException {
         for (ClientHandler client : clients) {
             if (client.getUsername().equals(recipient)) {
-                client.sendMessage(isServerInfoMsg ? null : sender.getUsername(), msg);
+                client.sendMessage(command);
+                break;
             }
         }
     }

@@ -2,7 +2,6 @@ package chat.auth;
 
 import chat.User;
 
-import java.awt.*;
 import java.util.List;
 
 public class BaseAuthService implements AuthService{

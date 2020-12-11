@@ -4,29 +4,29 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="357.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.AuthController">
+<AnchorPane prefHeight="318.0" prefWidth="495.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.AuthController">
    <children>
-      <TextField fx:id="loginField" layoutX="226.0" layoutY="85.0" opacity="0.88">
+      <TextField fx:id="loginField" layoutX="161.0" layoutY="60.0">
          <font>
             <Font size="24.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="passwordField" layoutX="226.0" layoutY="188.0" opacity="0.88">
+      <PasswordField fx:id="passwordField" layoutX="161.0" layoutY="159.0" onAction="#checkAuth">
          <font>
             <Font size="24.0" />
          </font>
       </PasswordField>
-      <Label layoutX="54.0" layoutY="93.0" text="Login">
-         <font>
-            <Font name="Verdana" size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="54.0" layoutY="196.0" text="Password">
+      <Label layoutX="28.0" layoutY="68.0" text="Login">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="253.0" layoutY="277.0" mnemonicParsing="false" onAction="#checkAuth" text="GO!">
+      <Label layoutX="28.0" layoutY="167.0" text="Password">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="196.0" layoutY="258.0" mnemonicParsing="false" onAction="#checkAuth" text="Sign in">
          <font>
             <Font size="24.0" />
          </font>

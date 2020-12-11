@@ -6,52 +6,51 @@ import clientserver.Command;
 import clientserver.commands.*;
 import javafx.application.Platform;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 
 public class Network {
 
-    private static final String SERVER_ADRESS = "localhost";
     private static final int SERVER_PORT = 8189;
+    private static final String SERVER_HOST = "localhost";
 
-    private final String host;
     private final int port;
+    private final String host;
 
-    private ObjectOutputStream dataOutputStream;
-    private ObjectInputStream dataInputStream;
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
 
     private Socket socket;
-
     private String username;
 
-    public ObjectOutputStream getDataOutputStream() {
-        return dataOutputStream;
+    public ObjectOutputStream getIn() {
+        return out;
     }
 
-    public ObjectInputStream getDataInputStream() {
-        return dataInputStream;
+    public ObjectInputStream getOut() {
+        return in;
     }
 
     public Network() {
-        this(SERVER_ADRESS, SERVER_PORT);
+        this(SERVER_HOST, SERVER_PORT);
     }
 
-    public Network(String host, int port) {
-        this.host = host;
-        this.port = port;
+    public Network(String serverHost, int serverPort) {
+        this.host = serverHost;
+        this.port = serverPort;
     }
+
+
 
     public boolean connect() {
         try {
             socket = new Socket(host, port);
-            dataOutputStream = new ObjectOutputStream(socket.getOutputStream());
-            dataInputStream = new ObjectInputStream(socket.getInputStream());
+            in = new ObjectInputStream(socket.getInputStream());
+            out = new ObjectOutputStream(socket.getOutputStream());
             return true;
 
         } catch (IOException e) {
-            System.out.println("Соединение не было установлено!");
+            NetworkClient.showErrorMsg("Fail connection process!", "", e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -66,6 +65,7 @@ public class Network {
         }
     }
 
+
     public void waitMessage(ChatController chatController) {
 
         Thread thread = new Thread( () -> {
@@ -73,7 +73,7 @@ public class Network {
 
                 Command command = readCommand();
                 if(command == null) {
-                    NetworkClient.showErrorMessage("Error","Ошибка серверва", "Получена неверная команда");
+                    NetworkClient.showErrorMsg("Error","Ошибка серверва", "Получена неверная команда");
                     continue;
                 }
 
@@ -92,7 +92,7 @@ public class Network {
                         ErrorCommandData data = (ErrorCommandData) command.getData();
                         String errorMessage = data.getErrorMessage();
                         Platform.runLater(() -> {
-                            NetworkClient.showErrorMessage("Error", "Server error", errorMessage);
+                            NetworkClient.showErrorMsg("Error", "Server error", errorMessage);
                         });
                         break;
                     }
@@ -103,7 +103,7 @@ public class Network {
                     }
                     default:
                         Platform.runLater(() -> {
-                            NetworkClient.showErrorMessage("Error","Unknown command from server!", command.getType().toString());
+                            NetworkClient.showErrorMsg("Error","Unknown command from server!", command.getType().toString());
                         });
                 }
 
@@ -117,11 +117,10 @@ public class Network {
         thread.start();
     }
 
-
     public String sendAuthCommand(String login, String password) {
         try {
             Command authCommand = Command.authCommand(login, password);
-            dataOutputStream.writeObject(authCommand);
+            out.writeObject(authCommand);
 
             Command command = readCommand();
             if (command == null) {
@@ -159,10 +158,8 @@ public class Network {
     }
 
     public void sendMessage(Command command) throws IOException {
-        dataOutputStream.writeObject(command);
+        out.writeObject(command);
     }
-
-
 
     public void sendPrivateMessage(String message, String recipient) throws IOException {
         Command command = Command.privateMessageCommand(recipient, message);
@@ -171,7 +168,7 @@ public class Network {
 
     private Command readCommand() throws IOException {
         try {
-            return (Command) dataInputStream.readObject();
+            return (Command) in.readObject();
         } catch (ClassNotFoundException e) {
             String errorMessage = "Получен неизвестный объект";
             System.err.println(errorMessage);

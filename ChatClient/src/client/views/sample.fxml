@@ -5,93 +5,93 @@
 <?import javafx.scene.text.*?>
 
 <SplitPane dividerPositions="0.05642023346303502" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="459.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.ChatController">
-  <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-         <children>
-            <MenuBar prefHeight="29.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <menus>
-                  <Menu mnemonicParsing="false" text="File">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#exit" text="Exit" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Edit">
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Help">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showAbout" text="Info" />
-                     </items>
-                  </Menu>
-               </menus>
-            </MenuBar>
-         </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-         <children>
-            <SplitPane dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <TitledPane animated="false" layoutX="-9.0" text="Список контактов" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <HBox layoutX="-9.0" layoutY="46.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <children>
-                                          <ListView fx:id="chatsView" prefHeight="200.0" prefWidth="200.0" />
-                                          <ScrollBar orientation="VERTICAL" />
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </AnchorPane>
-                          </content>
-                        </TitledPane>
-                     </children>
-                  </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="415.0">
-                     <children>
-                        <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="417.0" prefWidth="415.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <bottom>
-                              <SplitPane dividerPositions="0.7811059907834101" prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                                 <items>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                       <children>
-                                          <TextField fx:id="inputField" layoutX="13.0" layoutY="67.0" onAction="#sendMessage" opacity="0.73" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <font>
-                                                <Font name="Verdana" size="14.0" />
-                                             </font>
-                                          </TextField>
-                                       </children>
-                                    </AnchorPane>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                       <children>
-                                          <Button layoutX="183.0" layoutY="67.0" mnemonicParsing="false" onAction="#sendMessage" text="Отправить" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                       </children>
-                                    </AnchorPane>
-                                 </items>
-                              </SplitPane>
-                           </bottom>
-                           <center>
-                              <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-                           </center>
-                           <right>
-                              <ScrollBar orientation="VERTICAL" BorderPane.alignment="CENTER" />
-                           </right>
-                           <top>
-                              <Pane prefHeight="25.0" prefWidth="436.0" BorderPane.alignment="CENTER">
-                                 <children>
-                                    <Label layoutX="8.0" layoutY="4.0" text="Чат" />
-                                    <Label fx:id="usernameTitle" contentDisplay="RIGHT" layoutX="253.0" layoutY="4.0" prefHeight="17.0" prefWidth="167.0" text="username" textAlignment="RIGHT" />
-                                 </children>
-                              </Pane>
-                           </top>
-                        </BorderPane>
-                     </children>
-                  </AnchorPane>
-              </items>
-            </SplitPane>
-         </children></AnchorPane>
-  </items>
+    <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+            <children>
+                <MenuBar prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#exit" text="Exit" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#showAbout" text="Info" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </children></AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+            <children>
+                <SplitPane dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                            <children>
+                                <TitledPane animated="false" layoutX="-9.0" text="Список контактов" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                            <children>
+                                                <HBox layoutX="-9.0" layoutY="46.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <children>
+                                                        <ListView fx:id="chatsView" prefHeight="200.0" prefWidth="200.0" />
+                                                        <ScrollBar orientation="VERTICAL" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </TitledPane>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="415.0">
+                            <children>
+                                <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="417.0" prefWidth="415.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <bottom>
+                                        <SplitPane dividerPositions="0.7811059907834101" prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                                            <items>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                    <children>
+                                                        <TextField fx:id="inputField" layoutX="13.0" layoutY="67.0" onAction="#sendMessage" opacity="0.73" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <font>
+                                                                <Font name="Verdana" size="14.0" />
+                                                            </font>
+                                                        </TextField>
+                                                    </children>
+                                                </AnchorPane>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                    <children>
+                                                        <Button fx:id="sendButton" layoutX="183.0" layoutY="67.0" mnemonicParsing="false" onAction="#sendMessage" text="Отправить" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                    </children>
+                                                </AnchorPane>
+                                            </items>
+                                        </SplitPane>
+                                    </bottom>
+                                    <right>
+                                        <ScrollBar orientation="VERTICAL" BorderPane.alignment="CENTER" />
+                                    </right>
+                                    <top>
+                                        <Pane prefHeight="25.0" prefWidth="436.0" BorderPane.alignment="CENTER">
+                                            <children>
+                                                <Label layoutX="8.0" layoutY="4.0" text="Чат" />
+                                                <Label fx:id="usernameTitle" contentDisplay="RIGHT" layoutX="320.0" layoutY="4.0" prefHeight="17.0" prefWidth="100.0" text="username" textAlignment="RIGHT" />
+                                            </children>
+                                        </Pane>
+                                    </top>
+                                    <center>
+                                        <TextArea fx:id="messagesView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                                    </center>
+                                </BorderPane>
+                            </children>
+                        </AnchorPane>
+                    </items>
+                </SplitPane>
+            </children></AnchorPane>
+    </items>
 </SplitPane>

@@ -3,6 +3,7 @@ package client.controllers;
 import client.NetworkClient;
 import client.models.Network;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -94,7 +95,7 @@ public class ChatController {
 
         } catch (IOException e) {
             e.printStackTrace();
-            NetworkClient.showErrorMessage("Ошибка подключения", "Ошибка при отправке сообщения", e.getMessage());
+            NetworkClient.showErrorMsg("Ошибка подключения", "Ошибка при отправке сообщения", e.getMessage());
         }
     }
 
