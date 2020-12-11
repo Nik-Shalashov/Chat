@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="javafx" level="project" />
+    <orderEntry type="module" module-name="ChatCommands" exported="" />
   </component>
 </module>

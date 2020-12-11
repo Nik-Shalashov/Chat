@@ -1,4 +1,4 @@
-package sample;
+package client;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -6,7 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 
-public class Controller {
+import java.io.IOException;
+
+public class ViewController {
 
     @FXML
     private TextField inputField;
@@ -14,17 +16,31 @@ public class Controller {
     @FXML
     private ListView<String> listView;
 
+    @FXML
+    private ListView<String> chatsView;
+
     private final ObservableList<String> wordList = FXCollections.observableArrayList("Вы присоединились к чату!");
+
+    private final ObservableList<String> chatList = FXCollections.observableArrayList("Smith");
+
+    public Network network;
+
+    public void setNetwork(Network network) {
+        this.network = network;
+    }
 
     @FXML
     public void initialize() {
         listView.setItems(wordList);
+        chatsView.setItems(chatList);
     }
 
+
+
     @FXML
-    public void addWord() {
-        String word = inputField.getText();
-        if (word.isBlank()) {
+    public void sendMessage() {
+        String msg = inputField.getText();
+        if (msg.isBlank()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
             alert.setHeaderText("Empty message");
@@ -32,18 +48,24 @@ public class Controller {
             alert.showAndWait();
             return;
         } else {
-            addWordToList(word);
-            addWorldToTable(word);
+            //appendMessage(msg);
         }
         inputField.clear();
+
+        try {
+            network.getOut().writeUTF(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Client.showErrorMsg("Problems with connection", "Ошибка отправки сообщения", e.getMessage());
+        }
     }
 
-    private void addWorldToTable(String word) {
+
+    public void appendMessage(String msg) {
+        listView.getItems().add(msg);
     }
 
-    private void addWordToList(String word) {
-        listView.getItems().add(word);
-    }
+
 
     @FXML
     public void exit() {
