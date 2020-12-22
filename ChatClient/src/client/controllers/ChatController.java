@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 
-import java.io.IOException;
+import java.io.*;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -36,6 +36,7 @@ public class ChatController {
 
     public Network network;
     private String selectedRecipient;
+    private final File file = new File("ChatClient/src/client/chatHistory/HistoryOfUser1.txt");
 
     public void setLabel(String usernameTitle) {
         this.usernameTitle.setText(usernameTitle);
@@ -46,6 +47,23 @@ public class ChatController {
 
     @FXML
     public void initialize() {
+        try (var in = new FileInputStream(file)){
+            int n;
+            byte[] bytes = new byte[4096];
+            while (
+                    (n = in.read(bytes)) != -1
+            ) {
+                String chatHistory = new String(bytes);
+                String[] messages = chatHistory.split("\\r\\n\\r\\n");
+                for (int i = (messages.length - 100); i <= (messages.length - 1) ; i++) {
+                    messagesView.appendText(messages[i]);
+                    messagesView.appendText(System.lineSeparator());
+                    messagesView.appendText(System.lineSeparator());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         sendButton.setOnAction(event -> ChatController.this.sendMessage());
         inputField.setOnAction(event -> ChatController.this.sendMessage());
 
@@ -106,6 +124,15 @@ public class ChatController {
         messagesView.appendText(message);
         messagesView.appendText(System.lineSeparator());
         messagesView.appendText(System.lineSeparator());
+        try (FileWriter writer = new FileWriter(file, true)){
+            writer.write(timestamp);
+            writer.write(System.lineSeparator());
+            writer.write(message);
+            writer.write(System.lineSeparator());
+            writer.write(System.lineSeparator());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -6,9 +6,7 @@ import clientserver.Command;
 import clientserver.commands.*;
 import javafx.application.Platform;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 
 public class Network {
@@ -23,8 +21,9 @@ public class Network {
     private ObjectInputStream dataInputStream;
 
     private Socket socket;
-
     private String username;
+
+    private final File file = new File("ChatClient/src/client/chatHistory/HistoryOfUser1.txt");
 
     public ObjectOutputStream getDataOutputStream() {
         return dataOutputStream;
@@ -85,6 +84,7 @@ public class Network {
                         String formattedMessage = sender != null ? String.format("%s: %s", sender, message) : message;
                         Platform.runLater(() -> {
                             chatController.appendMessage(formattedMessage);
+
                         });
                         break;
                     }
